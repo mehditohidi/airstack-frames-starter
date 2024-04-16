@@ -36,8 +36,11 @@ app.frame("/", async (c) => {
   console.log(frameData?.fid);
   if (frameData?.fid) {
     userFid = frameData?.fid;
+  } else {
+    userFid = 253870;
   }
 
+  
   const state = deriveState(previousState => {
     if (buttonValue === 'inc') previousState.count+=2
     if (buttonValue === 'dec') previousState.count-=2
@@ -92,16 +95,7 @@ app.frame("/", async (c) => {
   let nftImage4 = data[nftNum1 + 3]?.image.small;
   let nftName4 = data[nftNum1 + 3]?.name;
 
-
-
-
-
-
-
   if (error) throw new Error(error);
-
-
-
   return c.res({
     image: (
       <div
@@ -166,5 +160,6 @@ app.frame("/", async (c) => {
   config();
 
   devtools(app, { serveStatic });
+  
 export const GET = handle(app);
 export const POST = handle(app);
