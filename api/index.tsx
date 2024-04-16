@@ -1,3 +1,5 @@
+//Programmed by: warpcast.com/themeht
+//Allrights reserved.
 import {
   getFarcasterUserNFTBalances,
   FarcasterUserNFTBalancesInput,
