@@ -1,5 +1,4 @@
-//Programmed by: warpcast.com/themeht
-//Allrights reserved.
+
 import {
   getFarcasterUserNFTBalances,
   FarcasterUserNFTBalancesInput,
@@ -8,8 +7,6 @@ import {
   NFTType,
   Frog,
   Button,
-  TextInput,
-  validateFramesMessage,
 } from "@airstack/frog";
 import { devtools } from "@airstack/frog/dev";
 import { handle } from "@airstack/frog/next";
@@ -29,22 +26,52 @@ export const app = new Frog<{ State: State }>({
 let userFid = 253870;
 
  
+
+// app.frame("/", async (c)=> {
+//   const { status, buttonValue, deriveState, frameData, verified } = c;
+//   return c.res({
+//     image: (
+//       <div
+//       style={{
+//         color: "white",
+//         display: "flex",
+        
+//         justifyContent: "center",
+//         flexDirection: "column",
+//         width: "100%",
+//         height: "100%",
+//         alignItems: "center"
+//       }}
+//       >
+//         <div style={{fontSize:120, color:"yellow"}}>BASE</div> 
+//         <div style={{fontSize:60, color:"cyan"}}>NFT BALANCE CHECKER</div>
+//         <div style={{fontSize:40, color:"pink"}}>OSBCOLLEGE</div>
+//         <div style={{fontSize:30}}>Developer: THEMEHT</div>
+//         <div style={{fontSize:30}}>Support us!</div>
+//       </div>
+//     ), intents:[<Button action="/response">Check</Button>]
+//   });
+// })
+
+
 app.frame("/", async (c) => {
   const { status, buttonValue, deriveState, frameData, verified } = c;
   if (!verified) console.log('Frame verification failed');
 
-  console.log(frameData?.fid);
-  if (frameData?.fid) {
+  console.log(frameData);
+
+  if (frameData?.fid && frameData.fid > 1) {
     userFid = frameData?.fid;
   } else {
     userFid = 253870;
   }
 
-  
+  let limitRange = 50;
+
   const state = deriveState(previousState => {
-    if (buttonValue === 'inc') previousState.count+=2
-    if (buttonValue === 'dec') previousState.count-=2
-    
+    if (buttonValue === 'inc' && previousState.count < limitRange) previousState.count+=2
+    if (buttonValue === 'dec' && previousState.count > 2) previousState.count-=2
+
   })
 
 
@@ -60,24 +87,14 @@ app.frame("/", async (c) => {
     chains: [
       TokenBlockchain.Base,
     ],
-    limit: 50,
+    limit: limitRange,
   };
   const {
     data,
     error,
-    hasNextPage,
-    hasPrevPage,
-    getNextPage,
-    getPrevPage,
   }: FarcasterUserNFTBalancesOutput = await getFarcasterUserNFTBalances(
     variables
   );
-
-
-  //Image Format Checker
-
- // Image Format Checker END
-
 
 
   let nftNum1 = state.count;
@@ -103,8 +120,8 @@ app.frame("/", async (c) => {
           color: "white",
           display: "flex",
           flexDirection: "row",
-          justifyContent: "center", // This centers the content along the main axis (horizontal by default)
-          alignItems: "center", // This centers the content along the cross axis (vertical by default)
+          justifyContent: "center", 
+          alignItems: "center",
           height: "100%",
           width: "100%",
           backgroundColor: "DarkSlateBlue",
@@ -112,35 +129,41 @@ app.frame("/", async (c) => {
           
         }}
       >
-        {status === "initial" ? <span style={{fontSize:60, display: "flex", flexDirection: "column"}}><span>Check Your NFTs Here!</span><span style={{fontSize:30}}>Frame created by: THEMEHT</span></span> : 
+        {status === "initial" ? <div style={{fontSize:60, display: "flex", flexDirection: "column"}}>
+        <div style={{fontSize:120, color:"yellow"}}>BASE</div> 
+         <div style={{fontSize:60, color:"cyan"}}>NFT BALANCE CHECKER</div>
+        <div style={{fontSize:40, color:"pink"}}>OSBCOLLEGE</div>
+         <div style={{fontSize:30}}>Developer: THEMEHT</div>
+        <div style={{fontSize:30}}>Support us!</div>
+        </div> : 
 
             [
          
-              <spam style={{display:"flex", flexDirection:"column", justifyContent: "center"}}>
-            <spam style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center"}}>
-              <spam style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
+              <div style={{display:"flex", flexDirection:"column", justifyContent: "center"}}>
+            <div style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center"}}>
+              <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
                 <img style={{borderRadius: 15, border: "solid", borderColor: "white", justifyContent: "center"}} height={300}  src={nftImage} />
                 <p style={{justifyContent: "center", width: "100%", fontSize: 32, fontWeight: "bold"}}>{nftName}</p>
-              </spam>
-              <spam style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
+              </div>
+              <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
                 <img style={{borderRadius: 15,  border: "solid", borderColor: "white", justifyContent: "center"}} height={300} src={nftImage2} />
                 <p style={{justifyContent: "center", width: "100%", fontSize: 32, fontWeight: "bold" }}>{nftName2}</p>
-              </spam>
-            </spam>
+              </div>
+            </div>
 
-                        <spam style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center", opacity: 0.3}}>
-                        <spam style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
+                        <div style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center", opacity: 0.3}}>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
                           <img style={{borderRadius: 15, border: "solid", borderColor: "yellow", justifyContent: "center"}} height={100}  src={nftImage3} />
                           <p style={{justifyContent: "center", width: "100%", fontSize: 20, fontWeight: "bold"}}>{nftName3}</p>
-                        </spam>
-                        <spam style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
+                        </div>
+                        <div style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", width: "50%"}}>
                           <img style={{borderRadius: 15,  border: "solid", borderColor: "yellow", justifyContent: "center"}} height={100} src={nftImage4} />
                           <p style={{justifyContent: "center", width: "100%", fontSize: 20, fontWeight: "bold" }}>{nftName4}</p>
-                        </spam>
-                      </spam>
+                        </div>
+                      </div>
 
 
-                      </spam>
+                      </div>
                      
           ]
             
@@ -151,7 +174,7 @@ app.frame("/", async (c) => {
       
       
     ),
-    intents: [ <Button value="inc">Show Me More!</Button>],
+    intents: [ <Button value="inc">Check now!</Button>]
     
     
     
@@ -160,6 +183,6 @@ app.frame("/", async (c) => {
   config();
 
   devtools(app, { serveStatic });
-  
+
 export const GET = handle(app);
 export const POST = handle(app);
