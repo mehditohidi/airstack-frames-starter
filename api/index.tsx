@@ -15,15 +15,14 @@ import { config } from "dotenv";
 type State = {
   count: 0
 }
-export const app = new Frog<{ State: State
-}>({
-  basePath: "/api",
+export const app = new Frog<{ State: State }>({
   initialState: {
-    count: 0
+    count: 0,
   },
-
+  basePath: "/api",
   apiKey: "1f4ac6d603aa340a29aecd892268c834b",
 });
+
 let userFid;
 
  
