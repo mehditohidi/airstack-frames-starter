@@ -62,7 +62,8 @@ app.frame("/", async (c) => {
   console.log(frameData);
 
   if (frameData?.fid && frameData.fid > 1) {
-    userFid = frameData?.fid;
+    userFid = frameData?.castId.fid;
+    console.log(userFid);
   } else {
     userFid = 269737;
   }
@@ -120,25 +121,20 @@ app.frame("/", async (c) => {
         style={{
           color: "white",
           display: "flex",
-          flexDirection: "row",
-          justifyContent: "center", 
-          alignItems: "center",
-          height: "100%",
-          width: "100%",
-          backgroundColor: "DarkSlateBlue",
+
          
           
-        }}
-      >
-        {status === "initial" ? <div style={{fontSize:60, display: "flex", flexDirection: "column"}}>
-        <div style={{fontSize:120, color:"yellow"}}>BASE</div> 
-         <div style={{fontSize:60, color:"cyan"}}>NFT BALANCE CHECKER</div>
-        <div style={{fontSize:40, color:"pink"}}>OSBCOLLEGE</div>
-         <div style={{fontSize:30}}>Developer: THEMEHT</div>
-        <div style={{fontSize:30}}>Support us!</div>
-        </div> : 
+        }} 
+      > 
+        {status === "initial" ? <span style={{fontSize:60, display: "flex", flexDirection: "column"}}>
+        <span style={{fontSize:120, color:"yellow"}}>BASE</span> 
+         <span style={{fontSize:60, color:"cyan"}}>NFT BALANCE CHECKER</span>
+        <span style={{fontSize:40, color:"pink"}}>OSBCOLLEGE</span>
+         <span style={{fontSize:30}}>Developer: THEMEHT</span>
+        <span style={{fontSize:30}}>Support us!</span>
+        </span> : 
 
-<>            
+           
          
               <div style={{display:"flex", flexDirection:"column", justifyContent: "center"}}>
             <div style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center"}}>
@@ -166,16 +162,16 @@ app.frame("/", async (c) => {
 
                       </div>
                      
-                </>      
-            
+                     
+      
 
         }
        
       </div>
       
-      
+    
     ),
-    intents: [ <Button value="inc">Check now!</Button>]
+    intents: [ <Button value="inc">Check Now!</Button>]
     
     
     
