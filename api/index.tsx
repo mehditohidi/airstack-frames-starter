@@ -15,9 +15,9 @@ import { config } from "dotenv";
 type State = {
   count: 0
 }
-export const app = new Frog<{ State: State, basePath: "/api",
+export const app = new Frog<{ State: State
 }>({
-  verify: 'silent',
+  basePath: "/api",
   initialState: {
     count: 0
   },
