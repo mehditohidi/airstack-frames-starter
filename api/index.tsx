@@ -15,7 +15,8 @@ import { config } from "dotenv";
 type State = {
   count: 0
 }
-export const app = new Frog<{ State: State }>({
+export const app = new Frog<{ State: State, basePath: "/api",
+}>({
   verify: 'silent',
   initialState: {
     count: 0
@@ -23,7 +24,7 @@ export const app = new Frog<{ State: State }>({
 
   apiKey: "1f4ac6d603aa340a29aecd892268c834b",
 });
-let userFid = 253870;
+let userFid;
 
  
 
@@ -63,7 +64,7 @@ app.frame("/", async (c) => {
   if (frameData?.fid && frameData.fid > 1) {
     userFid = frameData?.fid;
   } else {
-    userFid = 253870;
+    userFid = 269737;
   }
 
   let limitRange = 50;
@@ -137,7 +138,7 @@ app.frame("/", async (c) => {
         <div style={{fontSize:30}}>Support us!</div>
         </div> : 
 
-            [
+<>            
          
               <div style={{display:"flex", flexDirection:"column", justifyContent: "center"}}>
             <div style={{display: "flex", justifyContent: "center", width: "100%", flexDirection: "row", textAlign: "center"}}>
@@ -165,7 +166,7 @@ app.frame("/", async (c) => {
 
                       </div>
                      
-          ]
+                </>      
             
 
         }
