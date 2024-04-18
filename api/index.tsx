@@ -125,7 +125,7 @@ app.frame("/", async (c) => {
           alignItems: "center",
           width: "100%",
           height: "100%",
-         
+          backgroundColor: "black"
           
         }} 
       > 
