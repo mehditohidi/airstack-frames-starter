@@ -119,7 +119,12 @@ app.frame("/", async (c) => {
       <div
         style={{
           color: "white",
-          display: "flex"
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "100%",
          
           
         }} 
